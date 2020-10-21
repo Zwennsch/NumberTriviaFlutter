@@ -8,7 +8,7 @@ import 'package:number_trivia/features/number_trivia/domain/usecases/get_concret
 class MockNumberTriviaRepository extends Mock
     implements NumberTriviaRepository {}
 
-void main(List<String> args) {
+void main() {
   GetConcreteNumberTrivia usecase;
   MockNumberTriviaRepository mockNumberTriviaRepository;
 
