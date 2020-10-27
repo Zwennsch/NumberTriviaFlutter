@@ -4,4 +4,8 @@ import 'package:number_trivia/features/number_trivia/domain/entities/number_triv
 class NumberTriviaModel extends NumberTrivia {
   NumberTriviaModel({@required int number, @required String text})
       : super(number: number, text: text);
+
+  factory NumberTriviaModel.fromJson(Map<String, dynamic> json) {
+    return NumberTriviaModel(number: json['number'], text: json['text']);
+  }
 }
