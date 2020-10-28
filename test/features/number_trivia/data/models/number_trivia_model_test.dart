@@ -25,5 +25,12 @@ main() {
 
       expect(result, tNumberTriviaModel);
     });
+    test('should return a valid model when JSON number is a double', () async {
+      final Map<String, dynamic> jsonMap =
+          json.decode(fixture('trivia_double.json'));
+      final result = NumberTriviaModel.fromJson(jsonMap);
+
+      expect(result, tNumberTriviaModel);
+    });
   });
 }
