@@ -12,17 +12,15 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDatasource;
   final NetworkInfo networkInfo;
 
-  NumberTriviaRepositoryImpl({
-    @required this.localDatasource,
-    @required this.networkInfo,
-    @required this.remoteDatasource
-  });
-
+  NumberTriviaRepositoryImpl(
+      {@required this.localDatasource,
+      @required this.networkInfo,
+      @required this.remoteDatasource});
 
   @override
   Future<Either<Failure, NumberTrivia>> getConcreteNumberTrivia(int number) {
-    // TODO: implement getConcreteNumberTrivia
-    throw UnimplementedError();
+    networkInfo.isConnected;
+    return null;
   }
 
   @override
