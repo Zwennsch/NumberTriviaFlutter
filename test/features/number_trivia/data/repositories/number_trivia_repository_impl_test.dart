@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:number_trivia/core/error/excepions.dart';
+import 'package:number_trivia/core/error/failure.dart';
 import 'package:number_trivia/core/platform/network_info.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_loal_datasource.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart';
@@ -74,11 +76,34 @@ void main() {
         verify(mockRemoteDatasource.getConcreteNumberTrivia(tNumber));
         verify(mockLocaDatasource.cacheNumberTrivia(tNumberTriviaModel));
       });
+      test(
+          'should return a failure when the call to remote data source is unsuccesful ',
+          () async {
+        //arrange
+        when(mockRemoteDatasource.getConcreteNumberTrivia(any))
+            .thenThrow(ServerException());
+        //act
+        final result = await repository.getConcreteNumberTrivia(tNumber);
+        //assert
+        verify(mockRemoteDatasource.getConcreteNumberTrivia(tNumber));
+        verifyZeroInteractions(mockLocaDatasource);
+        expect(result, equals(Left(ServerFailure())));
+      });
     });
 
     group('device is offline', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+      test(
+          'should return last locally cached data when the cached data is present',
+          () async {
+        //arrange
+        when(mockLocaDatasource.getLastNumberTrivia())
+            .thenAnswer((_) async => tNumberTriviaModel);
+        //act
+        
+        //assert
       });
     });
   });
