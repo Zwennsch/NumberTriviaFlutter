@@ -102,8 +102,27 @@ void main() {
         when(mockLocaDatasource.getLastNumberTrivia())
             .thenAnswer((_) async => tNumberTriviaModel);
         //act
-        
+        final result = await repository.getConcreteNumberTrivia(tNumber);
         //assert
+        verifyZeroInteractions(mockRemoteDatasource);
+        verify(mockLocaDatasource.getLastNumberTrivia());
+
+        expect(result, equals(Right(tNumberTrivia)));
+      });
+
+      test(
+          'should return CacheFailure when the cached data is not present',
+          () async {
+        //arrange
+        when(mockLocaDatasource.getLastNumberTrivia())
+            .thenThrow(CacheException());
+        //act
+        final result = await repository.getConcreteNumberTrivia(tNumber);
+        //assert
+        verifyZeroInteractions(mockRemoteDatasource);
+        verify(mockLocaDatasource.getLastNumberTrivia());
+
+        expect(result, equals(Left(CacheFailure())));
       });
     });
   });
