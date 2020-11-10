@@ -1,7 +1,7 @@
 // import 'dart:html';
 
 import 'package:number_trivia/core/error/excepions.dart';
-import 'package:number_trivia/core/platform/network_info.dart';
+import 'package:number_trivia/core/network/network_info.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_loal_datasource.dart';
 import 'package:number_trivia/features/number_trivia/data/datasources/number_trivia_remote_datasource.dart';
 import 'package:number_trivia/features/number_trivia/domain/entities/number_trivia.dart';
