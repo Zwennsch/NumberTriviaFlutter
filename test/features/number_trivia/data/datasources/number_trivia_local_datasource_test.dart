@@ -10,6 +10,7 @@ import '../../../../fixtures/fixture_reader.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 
+
 void main() {
   NumberTriviaLocalDataSourceImpl dataSource;
   MockSharedPreferences mockSharedPreferences;
@@ -19,7 +20,6 @@ void main() {
     dataSource = NumberTriviaLocalDataSourceImpl(
         sharedPreferences: mockSharedPreferences);
   });
-
   group('get last number trivia', () {
     final tNumberTriviaModel =
         NumberTriviaModel.fromJson(json.decode(fixture('trivia_cached.json')));
