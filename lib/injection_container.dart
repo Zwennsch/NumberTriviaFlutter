@@ -13,10 +13,11 @@ import 'package:http/http.dart' as http;
 import 'features/number_trivia/data/repositories/number_trivia_repository_impl.dart';
 import 'features/number_trivia/domain/repositories/number_trivia_repository.dart';
 
-final sl = GetIt.instance();
+final sl = GetIt.instance;
 
 Future<void> init() async {
   // Features - Number Trivia
+  sl.registerSingletonAsync(() async => await SharedPreferences.getInstance(), dependsOn: [SharedPreferences]);
   sl.registerFactory(() => NumberTriviaBloc(
       getConcreteNumberTrivia: sl(),
       getRandomNumberTrivia: sl(),
@@ -41,8 +42,8 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   // External
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
+  // final sharedPreferences = await SharedPreferences.getInstance();
+  // sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => http.Client);
   sl.registerLazySingleton(() => DataConnectionChecker());
 }
